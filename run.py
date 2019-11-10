@@ -16,11 +16,12 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
-url = os.path.abspath("data/ForEvaluation.csv")
+url = os.path.abspath("data/TrainingData.csv")
 names = ['id', 'age', 'CurrentResidenceYears', 'isMarried', 'NumberOfDependants', 'Graduated', 'SelfEmployed',
          'YearsOfJobStability', 'YearlySalary', 'CreditRating', 'CoApplicantAge', 'CoApplicantYearsOfJobStability',
-         'CoApplicantYearlySalary', 'CoApplicantCreditRating', 'LoanTermInYears', 'LoanAmount', 'AreaClassification',
+         'CoApplicantYearlySalary', 'CoApplicantCreditRating', 'LoanTermInYears', 'LoanAmount', 'PropertyTotalCost',
+         'AreaClassification',
          'Approved']
 dataset = read_csv(url, names=names)
 
-print(dataset.shape)
+print(dataset.head(20))
