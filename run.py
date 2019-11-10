@@ -1,3 +1,5 @@
+import os
+
 from pandas import read_csv
 from pandas.plotting import scatter_matrix
 from matplotlib import pyplot
@@ -13,3 +15,12 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
+
+url = os.path.abspath("data/ForEvaluation.csv")
+names = ['id', 'age', 'CurrentResidenceYears', 'isMarried', 'NumberOfDependants', 'Graduated', 'SelfEmployed',
+         'YearsOfJobStability', 'YearlySalary', 'CreditRating', 'CoApplicantAge', 'CoApplicantYearsOfJobStability',
+         'CoApplicantYearlySalary', 'CoApplicantCreditRating', 'LoanTermInYears', 'LoanAmount', 'AreaClassification',
+         'Approved']
+dataset = read_csv(url, names=names)
+
+print(dataset.shape)
