@@ -23,8 +23,7 @@ from sklearn import preprocessing
 train_url = os.path.abspath("data/TrainingData.csv")
 names = ['id', 'age', 'CurrentResidenceYears', 'isMarried', 'NumberOfDependants', 'Graduated', 'SelfEmployed',
          'YearsOfJobStability', 'YearlySalary', 'CreditRating', 'CoApplicantAge', 'CoApplicantYearsOfJobStability',
-         'CoApplicantYearlySalary', 'CoApplicantCreditRating', 'LoanTermInYears', 'LoanAmount', 'PropertyTotalCost', 'AreaClassification',
-         'Approved']
+         'CoApplicantYearlySalary', 'CoApplicantCreditRating', 'LoanTermInYears', 'LoanAmount', 'PropertyTotalCost', 'AreaClassification', 'Approved']
 raw_dataset = read_csv(train_url, names=names, nrows=200000)
 del raw_dataset['id']
 
@@ -86,11 +85,5 @@ scaled_non_codependent_dataset = preprocessing.scale(non_codependent_dataset)
 
 
 # WE HAVE DATAAAAAAA
-
-
-
-
-
-
 
 
