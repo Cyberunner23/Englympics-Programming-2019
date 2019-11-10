@@ -17,6 +17,8 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 
 import pandas
+from sklearn.linear_model import LinearRegression
+from sklearn.cluster import KMeans
 
 from sklearn import preprocessing
 
@@ -58,14 +60,16 @@ scaled_codepedent_dataset = preprocessing.scale(codepedent_dataset)
 
 
 non_codependent_dataset = raw_dataset[(raw_dataset["CoApplicantAge"] == 0)]
+del non_codependent_dataset['CoApplicantAge']
+del non_codependent_dataset['CoApplicantYearsOfJobStability']
+del non_codependent_dataset['CoApplicantYearlySalary']
+del non_codependent_dataset['CoApplicantCreditRating']
+
 non_codependent_dataset['age'] = non_codependent_dataset['age'].astype(float)
 non_codependent_dataset['CurrentResidenceYears'] = non_codependent_dataset['CurrentResidenceYears'].astype(float)
 non_codependent_dataset['NumberOfDependants'] = non_codependent_dataset['NumberOfDependants'].astype(float)
 non_codependent_dataset['YearsOfJobStability'] = non_codependent_dataset['YearsOfJobStability'].astype(float)
 non_codependent_dataset['YearlySalary'] = non_codependent_dataset['YearlySalary'].astype(float)
-non_codependent_dataset['CoApplicantAge'] = non_codependent_dataset['CoApplicantAge'].astype(float)
-non_codependent_dataset['CoApplicantYearsOfJobStability'] = non_codependent_dataset['CoApplicantYearsOfJobStability'].astype(float)
-non_codependent_dataset['CoApplicantYearlySalary'] = non_codependent_dataset['CoApplicantYearlySalary'].astype(float)
 non_codependent_dataset['LoanTermInYears'] = non_codependent_dataset['LoanTermInYears'].astype(float)
 non_codependent_dataset['LoanAmount'] = non_codependent_dataset['LoanAmount'].astype(float)
 non_codependent_dataset['PropertyTotalCost'] = non_codependent_dataset['PropertyTotalCost'].astype(float)
@@ -76,7 +80,6 @@ non_codependent_dataset['SelfEmployed'] = non_codependent_dataset['SelfEmployed'
 non_codependent_dataset['Approved'] = non_codependent_dataset['Approved'].astype(int).astype(float)
 
 non_codependent_dataset['CreditRating'] = non_codependent_dataset['CreditRating'].replace(credit_rating_dict, inplace=False).astype(float)
-non_codependent_dataset['CoApplicantCreditRating'] = non_codependent_dataset['CoApplicantCreditRating'].replace(credit_rating_dict, inplace=False).astype(float)
 
 non_codependent_dataset['AreaClassification'] = non_codependent_dataset['AreaClassification'].replace(area_classification_dict, inplace=False).astype(float)
 
@@ -86,4 +89,55 @@ scaled_non_codependent_dataset = preprocessing.scale(non_codependent_dataset)
 
 # WE HAVE DATAAAAAAA
 
+print("***********CODEPENDENT DATA***********")
 
+array_codependent = codepedent_dataset.values
+X_codependent = array_codependent[:, 0:17]
+y_codependent = array_codependent[:, 17]
+
+X_codependent_train, X_codependent_validation, Y_codependent_train, Y_codependent_validation = train_test_split(X_codependent, y_codependent, test_size=0.20, random_state=1)
+
+models = []
+models.append(('KM', KMeans()))
+models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
+models.append(('LDA', LinearDiscriminantAnalysis()))
+models.append(('KNN', KNeighborsClassifier()))
+models.append(('CART', DecisionTreeClassifier()))
+models.append(('NB', GaussianNB()))
+#models.append(('SVM', SVC(gamma='auto')))
+
+results = []
+names = []
+for name, model in models:
+    kfold = StratifiedKFold(n_splits=10, random_state=1)
+    cv_results = cross_val_score(model, X_codependent_train, Y_codependent_train, cv=kfold, scoring='accuracy')
+    results.append(cv_results)
+    names.append(name)
+    print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
+
+
+print("***********CODEPENDENT NORMALIZED DATA***********")
+
+array_codependent_normalized = normalized_codepedent_dataset
+X_codependent_normalized = array_codependent[:, 0:17]
+y_codependent_normalized = array_codependent[:, 17]
+
+X_codependent_normalized_train, X_codependent_normalized_validation, Y_codependent_normalized_train, Y_codependent_normalized_validation = train_test_split(X_codependent_normalized, y_codependent_normalized, test_size=0.20, random_state=1)
+
+models = []
+models.append(('KM', KMeans()))
+models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
+models.append(('LDA', LinearDiscriminantAnalysis()))
+models.append(('KNN', KNeighborsClassifier()))
+models.append(('CART', DecisionTreeClassifier()))
+models.append(('NB', GaussianNB()))
+#models.append(('SVM', SVC(gamma='auto')))
+
+results = []
+names = []
+for name, model in models:
+    kfold = StratifiedKFold(n_splits=10, random_state=1)
+    cv_results = cross_val_score(model, X_codependent_train, Y_codependent_normalized_train, cv=kfold, scoring='accuracy')
+    results.append(cv_results)
+    names.append(name)
+    print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
