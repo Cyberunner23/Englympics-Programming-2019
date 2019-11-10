@@ -1,5 +1,5 @@
 # Englympics Concordia 2019
-![EnglympicsLogo](https://i.ibb.co/4djc9VM/Englympics.jpg)
+![EnglympicsLogo](https://i.ibb.co/Qd6ZzKn/Englympics.jpg)
 
 This program is designed to analyse an application for a mortgage using machine learning.
 
