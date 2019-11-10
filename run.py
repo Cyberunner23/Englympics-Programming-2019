@@ -29,68 +29,68 @@ names = ['id', 'age', 'CurrentResidenceYears', 'isMarried', 'NumberOfDependants'
 raw_dataset = read_csv(train_url, names=names, nrows=200000)
 del raw_dataset['id']
 
-codepedent_dataset = raw_dataset[(raw_dataset["CoApplicantAge"] > 0)]
-codepedent_dataset['age'] = codepedent_dataset['age'].astype(float)
-codepedent_dataset['CurrentResidenceYears'] = codepedent_dataset['CurrentResidenceYears'].astype(float)
-codepedent_dataset['NumberOfDependants'] = codepedent_dataset['NumberOfDependants'].astype(float)
-codepedent_dataset['YearsOfJobStability'] = codepedent_dataset['YearsOfJobStability'].astype(float)
-codepedent_dataset['YearlySalary'] = codepedent_dataset['YearlySalary'].astype(float)
-codepedent_dataset['CoApplicantAge'] = codepedent_dataset['CoApplicantAge'].astype(float)
-codepedent_dataset['CoApplicantYearsOfJobStability'] = codepedent_dataset['CoApplicantYearsOfJobStability'].astype(float)
-codepedent_dataset['CoApplicantYearlySalary'] = codepedent_dataset['CoApplicantYearlySalary'].astype(float)
-codepedent_dataset['LoanTermInYears'] = codepedent_dataset['LoanTermInYears'].astype(float)
-codepedent_dataset['LoanAmount'] = codepedent_dataset['LoanAmount'].astype(float)
-codepedent_dataset['PropertyTotalCost'] = codepedent_dataset['PropertyTotalCost'].astype(float)
+coapplicant_dataset = raw_dataset[(raw_dataset["CoApplicantAge"] > 0)]
+coapplicant_dataset['age'] = coapplicant_dataset['age'].astype(float)
+coapplicant_dataset['CurrentResidenceYears'] = coapplicant_dataset['CurrentResidenceYears'].astype(float)
+coapplicant_dataset['NumberOfDependants'] = coapplicant_dataset['NumberOfDependants'].astype(float)
+coapplicant_dataset['YearsOfJobStability'] = coapplicant_dataset['YearsOfJobStability'].astype(float)
+coapplicant_dataset['YearlySalary'] = coapplicant_dataset['YearlySalary'].astype(float)
+coapplicant_dataset['CoApplicantAge'] = coapplicant_dataset['CoApplicantAge'].astype(float)
+coapplicant_dataset['CoApplicantYearsOfJobStability'] = coapplicant_dataset['CoApplicantYearsOfJobStability'].astype(float)
+coapplicant_dataset['CoApplicantYearlySalary'] = coapplicant_dataset['CoApplicantYearlySalary'].astype(float)
+coapplicant_dataset['LoanTermInYears'] = coapplicant_dataset['LoanTermInYears'].astype(float)
+coapplicant_dataset['LoanAmount'] = coapplicant_dataset['LoanAmount'].astype(float)
+coapplicant_dataset['PropertyTotalCost'] = coapplicant_dataset['PropertyTotalCost'].astype(float)
 
-codepedent_dataset['isMarried'] = codepedent_dataset['isMarried'].astype(int).astype(float)
-codepedent_dataset['Graduated'] = codepedent_dataset['Graduated'].astype(int).astype(float)
-codepedent_dataset['SelfEmployed'] = codepedent_dataset['SelfEmployed'].astype(int).astype(float)
-codepedent_dataset['Approved'] = codepedent_dataset['Approved'].astype(int).astype(float)
+coapplicant_dataset['isMarried'] = coapplicant_dataset['isMarried'].astype(int).astype(float)
+coapplicant_dataset['Graduated'] = coapplicant_dataset['Graduated'].astype(int).astype(float)
+coapplicant_dataset['SelfEmployed'] = coapplicant_dataset['SelfEmployed'].astype(int).astype(float)
+coapplicant_dataset['Approved'] = coapplicant_dataset['Approved'].astype(int).astype(float)
 
 
 credit_rating_dict = {"AAA": 1, "AA": 2, "A": 3, "B": 4, "C": 5, "D": 6}
-codepedent_dataset['CreditRating'] = codepedent_dataset['CreditRating'].replace(credit_rating_dict, inplace=False).astype(float)
-codepedent_dataset['CoApplicantCreditRating'] = codepedent_dataset['CoApplicantCreditRating'].replace(credit_rating_dict, inplace=False).astype(float)
+coapplicant_dataset['CreditRating'] = coapplicant_dataset['CreditRating'].replace(credit_rating_dict, inplace=False).astype(float)
+coapplicant_dataset['CoApplicantCreditRating'] = coapplicant_dataset['CoApplicantCreditRating'].replace(credit_rating_dict, inplace=False).astype(float)
 
 area_classification_dict = {"CLASS_A": 1, "CLASS_B": 2, "CLASS_C": 3}
-codepedent_dataset['AreaClassification'] = codepedent_dataset['AreaClassification'].replace(area_classification_dict, inplace=False).astype(float)
+coapplicant_dataset['AreaClassification'] = coapplicant_dataset['AreaClassification'].replace(area_classification_dict, inplace=False).astype(float)
 
 
-non_codependent_dataset = raw_dataset[(raw_dataset["CoApplicantAge"] == 0)]
-del non_codependent_dataset['CoApplicantAge']
-del non_codependent_dataset['CoApplicantYearsOfJobStability']
-del non_codependent_dataset['CoApplicantYearlySalary']
-del non_codependent_dataset['CoApplicantCreditRating']
+non_coapplicant_dataset = raw_dataset[(raw_dataset["CoApplicantAge"] == 0)]
+del non_coapplicant_dataset['CoApplicantAge']
+del non_coapplicant_dataset['CoApplicantYearsOfJobStability']
+del non_coapplicant_dataset['CoApplicantYearlySalary']
+del non_coapplicant_dataset['CoApplicantCreditRating']
 
-non_codependent_dataset['age'] = non_codependent_dataset['age'].astype(float)
-non_codependent_dataset['CurrentResidenceYears'] = non_codependent_dataset['CurrentResidenceYears'].astype(float)
-non_codependent_dataset['NumberOfDependants'] = non_codependent_dataset['NumberOfDependants'].astype(float)
-non_codependent_dataset['YearsOfJobStability'] = non_codependent_dataset['YearsOfJobStability'].astype(float)
-non_codependent_dataset['YearlySalary'] = non_codependent_dataset['YearlySalary'].astype(float)
-non_codependent_dataset['LoanTermInYears'] = non_codependent_dataset['LoanTermInYears'].astype(float)
-non_codependent_dataset['LoanAmount'] = non_codependent_dataset['LoanAmount'].astype(float)
-non_codependent_dataset['PropertyTotalCost'] = non_codependent_dataset['PropertyTotalCost'].astype(float)
+non_coapplicant_dataset['age'] = non_coapplicant_dataset['age'].astype(float)
+non_coapplicant_dataset['CurrentResidenceYears'] = non_coapplicant_dataset['CurrentResidenceYears'].astype(float)
+non_coapplicant_dataset['NumberOfDependants'] = non_coapplicant_dataset['NumberOfDependants'].astype(float)
+non_coapplicant_dataset['YearsOfJobStability'] = non_coapplicant_dataset['YearsOfJobStability'].astype(float)
+non_coapplicant_dataset['YearlySalary'] = non_coapplicant_dataset['YearlySalary'].astype(float)
+non_coapplicant_dataset['LoanTermInYears'] = non_coapplicant_dataset['LoanTermInYears'].astype(float)
+non_coapplicant_dataset['LoanAmount'] = non_coapplicant_dataset['LoanAmount'].astype(float)
+non_coapplicant_dataset['PropertyTotalCost'] = non_coapplicant_dataset['PropertyTotalCost'].astype(float)
 
-non_codependent_dataset['isMarried'] = non_codependent_dataset['isMarried'].astype(int).astype(float)
-non_codependent_dataset['Graduated'] = non_codependent_dataset['Graduated'].astype(int).astype(float)
-non_codependent_dataset['SelfEmployed'] = non_codependent_dataset['SelfEmployed'].astype(int).astype(float)
-non_codependent_dataset['Approved'] = non_codependent_dataset['Approved'].astype(int).astype(float)
+non_coapplicant_dataset['isMarried'] = non_coapplicant_dataset['isMarried'].astype(int).astype(float)
+non_coapplicant_dataset['Graduated'] = non_coapplicant_dataset['Graduated'].astype(int).astype(float)
+non_coapplicant_dataset['SelfEmployed'] = non_coapplicant_dataset['SelfEmployed'].astype(int).astype(float)
+non_coapplicant_dataset['Approved'] = non_coapplicant_dataset['Approved'].astype(int).astype(float)
 
-non_codependent_dataset['CreditRating'] = non_codependent_dataset['CreditRating'].replace(credit_rating_dict, inplace=False).astype(float)
+non_coapplicant_dataset['CreditRating'] = non_coapplicant_dataset['CreditRating'].replace(credit_rating_dict, inplace=False).astype(float)
 
-non_codependent_dataset['AreaClassification'] = non_codependent_dataset['AreaClassification'].replace(area_classification_dict, inplace=False).astype(float)
+non_coapplicant_dataset['AreaClassification'] = non_coapplicant_dataset['AreaClassification'].replace(area_classification_dict, inplace=False).astype(float)
 
 
 # WE HAVE DATAAAAAAA
 
 # Used to test which model is the best, DecisionTreeClassifier wins
-'''print("***********CODEPENDENT DATA***********")
+print("***********COAPPLICANT DATA***********")
 
-array_codependent = codepedent_dataset.values
-X_codependent = array_codependent[:, 0:17]
-y_codependent = array_codependent[:, 17]
+array_coapplicant = coapplicant_dataset.values
+X_coapplicant = array_coapplicant[:, 0:17]
+y_coapplicant = array_coapplicant[:, 17]
 
-X_codependent_train, X_codependent_validation, Y_codependent_train, Y_codependent_validation = train_test_split(X_codependent, y_codependent, test_size=0.20, random_state=1)
+X_coapplicant_train, X_coapplicant_validation, Y_coapplicant_train, Y_coapplicant_validation = train_test_split(X_coapplicant, y_coapplicant, test_size=0.20, random_state=1)
 
 models = []
 models.append(('KM', KMeans()))
@@ -105,19 +105,19 @@ results = []
 names = []
 for name, model in models:
     kfold = StratifiedKFold(n_splits=10, random_state=1)
-    cv_results = cross_val_score(model, X_codependent_train, Y_codependent_train, cv=kfold, scoring='accuracy')
+    cv_results = cross_val_score(model, X_coapplicant_train, Y_coapplicant_train, cv=kfold, scoring='accuracy')
     results.append(cv_results)
     names.append(name)
     print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
 
 
-print("***********NON CODEPENDENT NORMALIZED DATA***********")
+print("***********NON COAPPLICANT NORMALIZED DATA***********")
 
-array_non_codependent = non_codependent_dataset.values
-X_non_codependent = array_non_codependent[:, 0:13]
-y_non_codependent = array_non_codependent[:, 13]
+array_non_coapplicant = non_coapplicant_dataset.values
+X_non_coapplicant = array_non_coapplicant[:, 0:13]
+y_non_coapplicant = array_non_coapplicant[:, 13]
 
-X_non_codependent_train, X_non_codependent_validation, Y_non_codependent_train, Y_non_codependent_validation = train_test_split(X_non_codependent, y_non_codependent, test_size=0.20, random_state=1)
+X_non_coapplicant_train, X_non_coapplicant_validation, Y_non_coapplicant_train, Y_non_coapplicant_validation = train_test_split(X_non_coapplicant, y_non_coapplicant, test_size=0.20, random_state=1)
 
 models = []
 models.append(('KM', KMeans()))
@@ -132,29 +132,29 @@ results = []
 names = []
 for name, model in models:
     kfold = StratifiedKFold(n_splits=10, random_state=1)
-    cv_results = cross_val_score(model, X_non_codependent_train, Y_non_codependent_train, cv=kfold, scoring='accuracy')
+    cv_results = cross_val_score(model, X_non_coapplicant_train, Y_non_coapplicant_train, cv=kfold, scoring='accuracy')
     results.append(cv_results)
     names.append(name)
-    print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))'''
+    print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
 
 
 # TRAINING ACTUAL MODEL
 
-# codependent
-array_codependent = codepedent_dataset.values
-X_codependent = array_codependent[:, 0:17]
-y_codependent = array_codependent[:, 17]
+# coapplicant
+array_coapplicant = coapplicant_dataset.values
+X_coapplicant = array_coapplicant[:, 0:17]
+y_coapplicant = array_coapplicant[:, 17]
 
-model_codependent = DecisionTreeClassifier()
-model_codependent.fit(X_codependent, y_codependent)
+model_coapplicant = DecisionTreeClassifier()
+model_coapplicant.fit(X_coapplicant, y_coapplicant)
 
-# noncodependent
-array_non_codependent = non_codependent_dataset.values
-X_non_codependent = array_non_codependent[:, 0:13]
-y_non_codependent = array_non_codependent[:, 13]
+# noncoapplicant
+array_non_coapplicant = non_coapplicant_dataset.values
+X_non_coapplicant = array_non_coapplicant[:, 0:13]
+y_non_coapplicant = array_non_coapplicant[:, 13]
 
-model_non_codependent = DecisionTreeClassifier()
-model_non_codependent.fit(X_non_codependent, y_non_codependent)
+model_non_coapplicant = DecisionTreeClassifier()
+model_non_coapplicant.fit(X_non_coapplicant, y_non_coapplicant)
 
 # load prediction data
 eval_url = os.path.abspath("data/ForEvaluation.csv")
@@ -191,8 +191,8 @@ with open("results.csv", "w") as f:
             del row['CoApplicantYearsOfJobStability']
             del row['CoApplicantYearlySalary']
             del row['CoApplicantCreditRating']
-            f.write('{},{}\n'.format(id, bool(model_non_codependent.predict([row])[0])))
+            f.write('{},{}\n'.format(id, bool(model_non_coapplicant.predict([row])[0])))
         else: # coapplicant
             id = row['id']
             del row['id']
-            f.write('{},{}\n'.format(id, bool(model_codependent.predict([row])[0])))
+            f.write('{},{}\n'.format(id, bool(model_coapplicant.predict([row])[0])))
